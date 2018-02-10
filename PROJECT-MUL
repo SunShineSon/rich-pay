@@ -3,3 +3,4 @@
 
 
 2、日志处理。
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
