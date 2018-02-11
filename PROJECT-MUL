@@ -3,4 +3,13 @@
 
 
 2、日志处理。
+	2.1、log日志
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
+	
+	
+3、spring MVC注解切面
+问题：配置了注解切面，调用接口不走切面对象。
+问题解决：http://blog.csdn.net/tianjun2012/article/details/47809739
+切面配置在spring MVC之后完成加载。
+
+

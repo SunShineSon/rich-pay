@@ -23,7 +23,6 @@
 
 	<context:property-placeholder location="classpath:*.properties" />
  
-	<import resource="spring-beans.xml" />
    	<!-- <import resource="spring-redis.xml" /> -->
    	<!-- <import resource="web-beans.xml" /> -->
 	<!-- <import resource="app-freemarker.xml" /> -->
