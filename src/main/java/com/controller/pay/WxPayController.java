@@ -39,7 +39,6 @@ public class WxPayController {
 	@RequestMapping(value = "/pay", method = { RequestMethod.POST, RequestMethod.GET })
 	public void pay(HttpServletRequest req, HttpServletResponse res, String code) {
 		log.info("注释接口");
-		
 	}
 
 }
