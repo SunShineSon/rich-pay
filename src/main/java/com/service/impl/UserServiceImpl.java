@@ -25,11 +25,17 @@ public class UserServiceImpl implements UserService {
 	
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
-	@RedisCache(db = RedisConstants.USER, key = "com.service.impl.UserServiceImpl.queryUserById_${id}", params = "id", seconds = 60 * 10, override = true)
+	@RedisCache(db = RedisConstants.USER, key = "queryUserById_${id}", params = "id", seconds = 60 * 10, override = true)
 	public User queryUserById(Long id){
 		log.info("db select！");
 		return null;
 		
+	}
+	
+	@RedisCache(db = RedisConstants.USER, key = "argsParam_${id}_${name}_${obj}", params = "id,name,obj", seconds = 60 * 10, override = true)
+	public void argsParam(String name, Long id, Object obj){
+		
+		log.info("argsParams info....");
 	}
 
 }

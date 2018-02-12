@@ -40,10 +40,21 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/queryUser", method = { RequestMethod.POST, RequestMethod.GET })
 	public void queryUser(HttpServletRequest req, HttpServletResponse res, Long id){
-		log.info("查询用户！");
 		userService.queryUserById(id);
 	}
 	
 	
-	
+	/**
+	 * 
+	 * 2018年2月12日 下午3:29:03
+	 * @Author：郭
+	 * @param id
+	 * @param name
+	 * @param obj
+	 * @Description：
+	 */
+	@RequestMapping(value = "/argsParam", method = { RequestMethod.POST, RequestMethod.GET })
+	public void argsParam(Long id, String name, Object obj){
+		userService.argsParam(name,id, obj);
+	}
 }

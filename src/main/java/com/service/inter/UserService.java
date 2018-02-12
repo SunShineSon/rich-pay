@@ -18,4 +18,7 @@ public interface UserService {
 	 * @return
 	 */
 	User queryUserById(Long id);
+	
+	
+	void argsParam(String name, Long id, Object obj);
 }

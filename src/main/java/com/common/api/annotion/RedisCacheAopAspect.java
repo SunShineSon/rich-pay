@@ -1,8 +1,11 @@
 package com.common.api.annotion;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -36,15 +39,19 @@ public class RedisCacheAopAspect {
 		String methodName = point.getSignature().getName();
 		//类
 		Class<?> targetClass = point.getTarget().getClass();
+		log.info("切面方法、做缓存Key前缀：" + targetClass.getName());
 		//方法
 		Method[] methods = targetClass.getMethods();
 		Method method = null;
 		for (int i = 0; i < methods.length; i++){
 			if (methods[i].getName() == methodName){
-				method = methods[i];	 				
+				method = methods[i]; 				
 				break;
 			}
 		}
+		
+		
+		
 	
 		//如果横切点不是方法，返回
 		if (method == null){
@@ -53,17 +60,31 @@ public class RedisCacheAopAspect {
 				
 		RedisCache skgCacheable = method.getAnnotation(RedisCache.class);
 		if(skgCacheable != null){
+			log.info("切面方法参数：" + skgCacheable.toString());
+			String params = skgCacheable.params();
+			String key = skgCacheable.key();
+			
+			/*
 			int db = skgCacheable.db();
 			int seconds = skgCacheable.seconds();
 			boolean override = skgCacheable.override();
-			String key = skgCacheable.key();
-			String params = skgCacheable.params();
+			*/
 			
-			log.info("数据库：" + db);
-			log.info("时间：" + seconds);
-			log.info("是否覆盖：" + override);
-			log.info("key：" + key);
-			log.info("params：" + params);
+			//方法传递的参数
+			Object[] args = point.getArgs();
+			List<String> list = toList(params, ",");
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			
+			if(args.length != 0 && list.size() != 0){
+				for (int i = 0; i < list.size(); i++) {
+					map.put(list.get(i), args[i]);
+				}
+			}
+			
+			log.info(map.toString());
+			
+			
 			return null;
 		}else {
 			//如果方法上没有注解@Cacheable，返回
@@ -71,4 +92,24 @@ public class RedisCacheAopAspect {
 		}
 	}
 	
+	public static void main(String[] args) {
+		String str = "id";
+		String result = str.substring(0, 1).toLowerCase() + str.substring(1);
+		System.out.println(result);
+	}
+	
+	public List<String> toList(String str, String token) {
+		List<String> array = new ArrayList<String>();
+		if (str != null && str.length() > 0 && token != null && token.length() > 0) {
+			if (str.indexOf(token) > -1) {
+				StringTokenizer st = new StringTokenizer(str, token);
+				while (st.hasMoreTokens()) {
+					array.add(st.nextToken());
+				}
+			} else {
+				array.add(str);
+			}
+		}
+		return array;
+	}
 }
