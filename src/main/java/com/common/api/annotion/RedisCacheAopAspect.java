@@ -7,8 +7,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javax.annotation.Resource;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
+
+import com.common.engine.FreemarkEngine;
 
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.template.TemplateHashModel;
@@ -18,6 +24,8 @@ import freemarker.template.TemplateModelException;
 public class RedisCacheAopAspect {
 	
 	private static Logger log = Logger.getLogger(RedisCacheAopAspect.class);
+	@Resource
+	private FreemarkEngine freemarkEngine;
 	
 	//添加FreeMarker可访问的类静态方法的字段
 	static Map<String,TemplateHashModel> STATIC_CLASSES = new HashMap<String, TemplateHashModel>();
@@ -58,11 +66,11 @@ public class RedisCacheAopAspect {
 			return point.proceed();
 		}
 				
-		RedisCache skgCacheable = method.getAnnotation(RedisCache.class);
-		if(skgCacheable != null){
-			log.info("切面方法参数：" + skgCacheable.toString());
-			String params = skgCacheable.params();
-			String key = skgCacheable.key();
+		RedisCache cacheable = method.getAnnotation(RedisCache.class);
+		if(cacheable != null){
+			log.info("切面方法参数：" + cacheable.toString());
+			String params = cacheable.params();
+			String annotationKey = cacheable.key();
 			
 			/*
 			int db = skgCacheable.db();
@@ -70,20 +78,32 @@ public class RedisCacheAopAspect {
 			boolean override = skgCacheable.override();
 			*/
 			
-			//方法传递的参数
+			//方法传递的参数值
 			Object[] args = point.getArgs();
+			//方法注解需求参数名
 			List<String> list = toList(params, ",");
 			Map<String, Object> map = new HashMap<String, Object>();
-			
+			//map.putAll(STATIC_CLASSES);	
 			
 			if(args.length != 0 && list.size() != 0){
 				for (int i = 0; i < list.size(); i++) {
-					map.put(list.get(i), args[i]);
+					map.put(lowerFirst(list.get(i)), args[i]);
 				}
 			}
 			
 			log.info(map.toString());
 			
+			try {
+				String key = "";
+				if(StringUtils.isNotBlank(annotationKey)){
+					key = targetClass.getName() + "_" + freemarkEngine.parseByStringTemplate(annotationKey, map);		
+					log.info("key = " + key);
+				}else{
+					
+				}
+			} catch (Exception e) {
+				return point.proceed();
+			}
 			
 			return null;
 		}else {
@@ -112,4 +132,11 @@ public class RedisCacheAopAspect {
 		}
 		return array;
 	}
+	
+	public String lowerFirst(String str){
+		String result = str.substring(0, 1).toLowerCase() + str.substring(1);
+		return result;
+	}
+	
+	
 }

@@ -54,7 +54,7 @@ public class UserController {
 	 * @Description：
 	 */
 	@RequestMapping(value = "/argsParam", method = { RequestMethod.POST, RequestMethod.GET })
-	public void argsParam(Long id, String name, Object obj){
-		userService.argsParam(name,id, obj);
+	public void argsParam(Long id, String name, int type){
+		userService.argsParam(name, id, type);
 	}
 }

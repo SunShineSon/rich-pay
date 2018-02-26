@@ -20,5 +20,5 @@ public interface UserService {
 	User queryUserById(Long id);
 	
 	
-	void argsParam(String name, Long id, Object obj);
+	void argsParam(String name, Long id, int type);
 }
