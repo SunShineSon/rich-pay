@@ -55,6 +55,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/argsParam", method = { RequestMethod.POST, RequestMethod.GET })
 	public void argsParam(Long id, String name, int type){
+		log.info("argsParam mothed！");
 		userService.argsParam(name, id, type);
 	}
 }
