@@ -21,4 +21,14 @@ public interface UserService {
 	
 	
 	void argsParam(String name, Long id, int type);
+
+	/**
+	 * 新增用户
+	 * 2018年2月28日 下午3:44:27
+	 * @Author：郭
+	 * @param user
+	 * @Description：
+	 */
+	int addUser(User user);
+
 }

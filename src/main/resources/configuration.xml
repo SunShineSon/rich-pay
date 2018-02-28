@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-config.dtd">
+<configuration>
+	 
+	<settings >
+		<setting name="cacheEnabled" value="false"/>
+	</settings> 
+	<plugins>
+		<plugin interceptor="com.hlb.base.db.mybatis.impl.OffsetLimitInterceptor">
+			<property name="dbType" value="jdbc.dbType"/>
+			<property name="Dialect.mysql" value="com.hlb.base.db.mybatis.impl.dialect.MySQLDialect"/>
+			
+		</plugin>
+	</plugins>
+	 
+</configuration>

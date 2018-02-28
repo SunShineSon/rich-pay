@@ -1,5 +1,7 @@
 package com.controller.user;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.common.util.UUid;
+import com.entity.user.User;
 import com.service.inter.UserService;
 
 /**
@@ -54,8 +58,36 @@ public class UserController {
 	 * @Description：
 	 */
 	@RequestMapping(value = "/argsParam", method = { RequestMethod.POST, RequestMethod.GET })
-	public void argsParam(Long id, String name, int type){
+	public void argsParam(HttpServletRequest req, HttpServletResponse res, Long id, String name, int type){
 		log.info("argsParam mothed！");
 		userService.argsParam(name, id, type);
 	}
+	
+	/**
+	 * 新增用户接口
+	 * 2018年2月28日 下午3:45:00
+	 * @Author：郭
+	 * @param req
+	 * @param res
+	 * @param user
+	 * @Description：
+	 */
+	@RequestMapping(value = "/addUser", method = { RequestMethod.POST, RequestMethod.GET })
+	public void addUser(HttpServletRequest req, HttpServletResponse res, User user){
+		log.info("add user !");
+		Date now = new Date();
+		user.setCreateTime(now);
+		user.setId(UUid.getNextLongId());
+		int count = userService.addUser(user);
+		try {
+			if (count == 0) {
+				res.getWriter().print("false");
+			} else {
+				res.getWriter().print("true");
+			} 
+		} catch (Exception e) {
+
+		}
+	}
+	
 }

@@ -46,7 +46,7 @@ public class RedisCacheAopAspect {
 		String methodName = point.getSignature().getName();
 		//类
 		Class<?> targetClass = point.getTarget().getClass();
-		log.info("切面方法、做缓存Key前缀：" + targetClass.getName());
+		log.info("切面方法前缀：" + targetClass.getName());
 		//方法
 		Method[] methods = targetClass.getMethods();
 		Method method = null;
@@ -56,9 +56,6 @@ public class RedisCacheAopAspect {
 				break;
 			}
 		}
-		
-		
-		
 	
 		//如果横切点不是方法，返回
 		if (method == null){

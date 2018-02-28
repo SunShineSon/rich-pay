@@ -1,52 +1,49 @@
 package com.entity.user;
 
 import java.io.Serializable;
+import java.util.Date;
 
-/**
- * 
- * 2018年2月11日 上午9:45:07
- * 
- * @Author：郭
- * @Description： 
- *
- */
-public class User implements Serializable {
+public class User implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
-	private String id ;
-	
-	private String name;
-	
-	private int age;
+	private Long id;
 
-	public String getId() {
-		return id;
-	}
+    private String name;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    private Long age;
 
-	public String getName() {
-		return name;
-	}
+    private Date createTime;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public int getAge() {
-		return age;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setAge(int age) {
-		this.age = age;
-	}
-	
-	@Override
-	public String toString() {
-		return "[id=" + id + ",name=" + name + ",age=" + age + "]";
-	}
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public Long getAge() {
+        return age;
+    }
+
+    public void setAge(Long age) {
+        this.age = age;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 }
-

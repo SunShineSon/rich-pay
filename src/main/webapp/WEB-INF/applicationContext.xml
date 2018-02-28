@@ -29,7 +29,7 @@
 		<property name="password" value="${jdbc.password}" />
 		<!-- 设置数据库连接池的最大连接数 -->
 		<property name="maxPoolSize">
-			<value>100</value>
+			<value>30</value>
 		</property>
 		<!-- 设置数据库连接池的最小连接数 -->
 		<property name="minPoolSize">
@@ -48,10 +48,29 @@
 		</property>
 	</bean>
 
+	<!-- spring mybatis -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="typeAliasesPackage" value="com.dao;"/>
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.dao; "/>
+      	<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+    
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>	
+
 	<!-- <import resource="spring-redis.xml" /> -->
 	<!-- <import resource="web-beans.xml" /> -->
 	<!-- <import resource="app-freemarker.xml" /> -->
-	
-	<import resource="classpath:rabbitmq-beans.xml"/>
-	
+
+	<import resource="classpath:rabbitmq-beans.xml" />
+
 </beans>

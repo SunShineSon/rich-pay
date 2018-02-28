@@ -8,8 +8,8 @@
 	<!--设置Log4j的配置文件的路径 -->
 	<context-param>
 		<param-name>log4jConfigLocation</param-name>
-		<!-- <param-value>/WEB-INF/log4j.xml</param-value> -->
-		<param-value>log4j.properties</param-value>
+		<param-value>log4j.xml</param-value>
+		<!-- <param-value>log4j.properties</param-value> -->
 	</context-param>
 
 	<!-- 指定Spring的配置文件 -->
