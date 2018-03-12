@@ -18,7 +18,6 @@
 	<tx:annotation-driven />
 	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
 
-
 	<context:property-placeholder location="classpath:*.properties" />
 
 	<!-- 数据库连接池配置 -->
