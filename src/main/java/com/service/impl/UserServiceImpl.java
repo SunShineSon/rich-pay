@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 		
 	}
 	
-	@RedisCache(db = RedisConstants.USER, key = "argsParam_${id}_${name}_${type}", params = "name,id,type", seconds = 60 * 10, override = true)
+	@RedisCache(db = RedisConstants.USER, key = "argsParam_${id}_${name}_${type}", params = "id,name,type", seconds = 60 * 10, override = true)
 	public void argsParam(String name, Long id, int type){
 		
 		log.info("argsParams info....");

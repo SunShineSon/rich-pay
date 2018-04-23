@@ -83,7 +83,7 @@ public class RedisCacheAopAspect {
 			
 			if(args.length != 0 && list.size() != 0){
 				for (int i = 0; i < list.size(); i++) {
-					map.put(lowerFirst(list.get(i)), args[i]);
+					map.put(lowerFirst(list.get(i)), String.valueOf(args[i]));
 				}
 			}
 			

@@ -20,3 +20,11 @@ spring-mvc.xml中配置加载注解组件，实现扫描启动加载各类
 
 5、rabbitMQ消息。
 
+
+6、切面参数配置及获取，切面解析等。
+@RedisCache(db = RedisConstants.USER, key = "argsParam_${id}_${name}_${type}", params = "id,name,type", seconds = 60 * 10, override = true)
+com.service.impl.UserServiceImpl.argsParam(String, Long, int);
+注意事项：
+	自定义注解，参数配置，参数值等，key中的参数变量和params中对应的方法参数顺序必须保持一致，才能吧key中的值换成函数传入的参数。
+	
+
