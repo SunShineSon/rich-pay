@@ -49,8 +49,9 @@
 
 	<!-- 消费者委托类 -->
 	<bean name="reportDelegate" class="com.service.mq.rabbitmq.delegate.ReportDelegate" />
+	<bean name="smsDelegate" class="com.service.mq.rabbitmq.delegate.SmsDelegate" />
 
-	<!-- 消费者 -->
+	<!-- 消费者 
 	<bean class="com.service.mq.rabbitmq.consumer.RabbitMQConsumer">
 		<property name="channelFactory" ref="rabbitMQChannelFactory" />
 		<property name="delegate" ref="reportDelegate" />
@@ -59,6 +60,18 @@
 		<property name="exchangeType" value="direct" />
 		<property name="routingKey" value="report.user.test.routingKey" />
 		<property name="queueName" value="report.user.test.queue" />
+	</bean>
+	-->
+	
+	<!-- 段信息消费者 -->
+	<bean class="com.service.mq.rabbitmq.consumer.RabbitMQConsumer">
+		<property name="channelFactory" ref="rabbitMQChannelFactory" />
+		<property name="delegate" ref="smsDelegate" />
+		<property name="method" value="messageSend" />
+		<property name="exchange" value="default.exchange" />
+		<property name="exchangeType" value="direct" />
+		<property name="routingKey" value="message.sms.routingKey" />
+		<property name="queueName" value="message.sms.queue" />
 	</bean>
 
 </beans>
