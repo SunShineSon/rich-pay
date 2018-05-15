@@ -3,7 +3,7 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-	<display-name>rich-pay</display-name>
+	<display-name>message</display-name>
 
 	<!--设置Log4j的配置文件的路径 -->
 	<context-param>

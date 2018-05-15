@@ -10,6 +10,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.util.Assert;
 
+import com.hlb.service.mq.rabbitmq.model.MessageModel;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.ConfirmListener;
@@ -21,7 +22,6 @@ import com.service.mq.rabbitmq.channel.RabbitMQChannelFactory;
 import com.service.mq.rabbitmq.constant.RabbitMQConstant;
 import com.service.mq.rabbitmq.enums.ExchangeTypeEnum;
 import com.service.mq.rabbitmq.enums.RoutingKeyEnum;
-import com.service.mq.rabbitmq.model.MessageModel;
 
 public class RabbitMQTemplate implements InitializingBean, ShutdownListener, ReturnListener, ConfirmListener {
 

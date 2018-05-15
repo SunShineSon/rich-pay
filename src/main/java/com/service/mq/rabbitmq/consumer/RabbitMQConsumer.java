@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.util.MethodInvoker;
 import org.springframework.util.ObjectUtils;
 
+import com.hlb.service.mq.rabbitmq.model.MessageModel;
 import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Consumer;
@@ -22,7 +23,6 @@ import com.service.mq.rabbitmq.channel.RabbitMQChannelFactory;
 import com.service.mq.rabbitmq.constant.RabbitMQConstant;
 import com.service.mq.rabbitmq.enums.ExchangeTypeEnum;
 import com.service.mq.rabbitmq.enums.RoutingKeyEnum;
-import com.service.mq.rabbitmq.model.MessageModel;
 
 /**
  * RabbitMQ消费者类
@@ -155,6 +155,9 @@ public class RabbitMQConsumer implements Consumer, InitializingBean {
 			if(invokeResult){
 				channel.basicAck(envelope.getDeliveryTag(), false);
 				consumedSeqNos.remove(messageModel.getSeqNo());
+			}else{
+				logger.error("执行结果false");
+				
 			}
 			
 		} else {
